@@ -4,39 +4,13 @@ $(() => {
     var ctr = 0; 
     var randomleng = 0; //defining ship by length instead of defining a ship.
     var shipcrossing = false;
+    var big = false;
   // Build 10 x 10 grid for battleground
     for (let row = 0; row < 10; row++) {
         // Create table row
         const tr = $('<tr>');
         for (let column = 0; column < 10; column++) {
-            if (ctr === 0) {
-                randomleng = Math.floor((Math.random() * 6));
-                $('<td>').addClass('water').attr('data-r', row).attr('data-c', column).appendTo(tr);
-                ctr = randomleng;
-            } else {
-                
-                if (column + ctr < 10) {
-
-                    for (var key = column; key < 10 && key < column + ctr; key++) {
-                        if ($('<tr>').hasClass('water')) {
-                            shipcrossing = true;
-                            columns = 10;
-                        }
-                    }
-
-                    if (shipcrossing === false) {
-                        $('<td>').addClass('ship').attr('data-r', row).attr('data-c', column).appendTo(tr);
-                        $('<td>').addClass('water').attr('data-r', row).attr('data-c', column + 1).appendTo(tr);
-                    }
-
-                    //$('<tr>').hasClass('water');
-
-                } else {
-                    $('<td>').addClass('water').attr('data-r', row).attr('data-c', column).appendTo(tr);
-                }
-                ctr -= 1;
-            }
-            
+            $('<td>').addClass('water').attr('data-r', row).attr('data-c', column).appendTo(tr);
       // Create table cell with CSS class `water`. Note that we use
       // HTML data attributes  to store the coordinates of each cell
       // (see https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes). 
@@ -46,7 +20,33 @@ $(() => {
 
     // Add table row to battleground table
         tr.appendTo(battleground);
-  }
+    }
+
+    for (var i = 0; i < 10; i++) {
+        shipcrossing = false;
+        for (var j = 0; j < 10; j++) {
+            if (ctr === 0) {
+                randomleng = Math.floor((Math.random() * 6));
+                ctr = randomleng;
+            } else {
+                if (column + ctr < 10) {
+
+                    for (var key = j; key < 10 && key < j + ctr; key++) {
+                        if ($('<tr>').hasClass('ship').attr('data-r', i+1).attr('data-c', j-1)) {
+                            shipcrossing = true;
+                            i = 10;
+                        }
+                    }
+
+                    if (shipcrossing === false) {
+                        $('td[data-r="'+i+'"][data-c="'+j+'"]').removeClass('water').addClass('ship');
+                    }
+                }
+                ctr -= 1;
+            }
+        }
+    }
+    tr.appendTo(battleground);
 
   $('#generate').click(() => {
     // Here you have to add your code for building a random battleground.
