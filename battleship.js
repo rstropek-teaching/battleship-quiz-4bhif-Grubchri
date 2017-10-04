@@ -9,16 +9,17 @@ $(() => {
         // Create table row
         const tr = $('<tr>');
         for (let column = 0; column < 10; column++) {
-            if (randomleng === 0) {
+            if (ctr === 0) {
                 randomleng = Math.floor((Math.random() * 6));
                 $('<td>').addClass('water').attr('data-r', row).attr('data-c', column).appendTo(tr);
-            } else {
                 ctr = randomleng;
+            } else {
+                
                 if (column + ctr < 10) {
 
-                    for (let key = column; key < 10 && key < column + ctr; key++) {
+                    for (var key = column; key < 10 && key < column + ctr; key++) {
                         if ($('<tr>').hasClass('water')) {
-                            shipscrossed = true;
+                            shipcrossing = true;
                             columns = 10;
                         }
                     }
