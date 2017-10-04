@@ -16,20 +16,20 @@ $(() => {
                 ctr = randomleng;
                 if (column + ctr < 10) {
 
-                    for (let key = columns; key < 10 && key < column + ctr; key++) {
-                        if ($('<tr>').hasClass('water')){
+                    for (let key = column; key < 10 && key < column + ctr; key++) {
+                        if ($('<tr>').hasClass('water')) {
                             shipscrossed = true;
                             columns = 10;
                         }
                     }
 
-                    if (shipscrossed === false) {
+                    if (shipcrossing === false) {
                         $('<td>').addClass('ship').attr('data-r', row).attr('data-c', column).appendTo(tr);
-                        $('<td>').addClass('water').attr('data-r', row).attr('data-c', column+1).appendTo(tr);
+                        $('<td>').addClass('water').attr('data-r', row).attr('data-c', column + 1).appendTo(tr);
                     }
 
                     //$('<tr>').hasClass('water');
-                    
+
                 } else {
                     $('<td>').addClass('water').attr('data-r', row).attr('data-c', column).appendTo(tr);
                 }
