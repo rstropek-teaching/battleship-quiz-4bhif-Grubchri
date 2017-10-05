@@ -45,7 +45,7 @@ $(() => {
                   if (j + ctr < 10) {
 
                       for (var key = j; key < 10 && key < j + ctr; key++) {
-                          if ($('<tr>').attr('data-r', i).attr('data-c', j - 1).hasClass('ship') || $('<tr>').attr('data-r', i - 1).attr('data-c', j - 1).hasClass('ship')) {
+                          if ($('<tr>').attr('data-r', i).attr('data-c', j - 1).hasClass('ship') || $('<tr>').attr('data-r', i - 1).attr('data-c', j - 1).hasClass('ship') || $('<tr>').attr('data-r', i + 1).attr('data-c', j - 1).hasClass('ship')) {
                               shipcrossing = true;
                               j = 10;
                           }
