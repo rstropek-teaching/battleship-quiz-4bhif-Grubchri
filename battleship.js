@@ -22,39 +22,49 @@ $(() => {
         tr.appendTo(battleground);
     }
 
-    for (var i = 0; i < 10; i++) {
-        shipcrossing = false;
-        for (var j = 0; j < 10; j++) {
-            if (ctr === 0) {
-                randomleng = Math.floor((Math.random() * 6));
-                ctr = randomleng;
-            } else {
-                if (column + ctr < 10) {
-
-                    for (var key = j; key < 10 && key < j + ctr; key++) {
-                        if ($('<tr>').hasClass('ship').attr('data-r', i+1).attr('data-c', j-1)) {
-                            shipcrossing = true;
-                            i = 10;
-                        }
-                    }
-
-                    if (shipcrossing === false) {
-                        $('td[data-r="'+i+'"][data-c="'+j+'"]').removeClass('water').addClass('ship');
-                    }
-                }
-                ctr -= 1;
-            }
-        }
-    }
-    tr.appendTo(battleground);
+    
 
   $('#generate').click(() => {
     // Here you have to add your code for building a random battleground.
 
     // Tip: The next line of code demonstrates how you can select a table cell
     // using coordinates, remove CSS classes and add CSS classes. 
-    $('td[data-r="1"][data-c="1"]').removeClass('water').addClass('ship');
+    /*$('td[data-r="1"][data-c="1"]').removeClass('water').addClass('ship');
     $('td[data-r="2"][data-c="1"]').removeClass('water').addClass('ship');
-    $('td[data-r="3"][data-c="1"]').removeClass('water').addClass('ship');
+    $('td[data-r="3"][data-c="1"]').removeClass('water').addClass('ship');*/
+      for (var i = 0; i < 10; i++) {
+          shipcrossing = false;
+
+          for (var j = 0; j < 10; j++) {
+              if (ctr === 0) {
+                  randomleng = Math.floor((Math.random() * 6));
+                  $('td[data-r="' + i + '"][data-c="' + j + '"]').removeClass('ship').addClass('water');
+                  ctr = randomleng;
+                  big = false;
+              } else {
+                  if (j + ctr < 10) {
+
+                      for (var key = j; key < 10 && key < j + ctr; key++) {
+                          if ($('<tr>').attr('data-r', i).attr('data-c', j - 1).hasClass('ship') || $('<tr>').attr('data-r', i - 1).attr('data-c', j - 1).hasClass('ship')) {
+                              shipcrossing = true;
+                              j = 10;
+                          }
+                      }
+
+                      if (shipcrossing === false && ctr > 1) {
+                          $('td[data-r="' + i + '"][data-c="' + j + '"]').removeClass('water').addClass('ship');
+                          big = true;
+                      } else {
+                          $('td[data-r="' + i + '"][data-c="' + j + '"]').removeClass('ship').addClass('water');
+                      }
+
+                      if (big === true) {
+                          $('td[data-r="' + i + '"][data-c="' + j + '"]').removeClass('water').addClass('ship');
+                      }
+                  }
+                  ctr -= 1;
+              }
+          }
+      }
   });
 });
